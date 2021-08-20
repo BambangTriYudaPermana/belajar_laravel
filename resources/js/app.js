@@ -8,32 +8,45 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import Vue from 'vue';
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('header-component', require('./components/Header.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+const Home = require('./pages/Home.vue').default
+const About = require('./pages/About.vue').default
+const NotFound = require('./pages/NotFound.vue').default
+// const { default: VueRouter } = require('vue-router');
 
-const header = new Vue({
+const routes = [
+    {
+        path : '/home',
+        component : Home
+    },
+    {
+        path : '/about',
+        component : About
+    },
+    {
+        path : '*', //ketika mengetikan sembarang url
+        component : NotFound
+    }
+]
+
+const router = new VueRouter({
+    mode : 'history',
+    routes
+})
+
+const app = new Vue({
     el: '#app',
     data: {
         title : 'Belajar Laravel Vue'
-    }
+    },
+    router
 });
 
 const body = new Vue({

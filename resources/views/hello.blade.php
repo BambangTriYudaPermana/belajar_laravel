@@ -15,12 +15,13 @@
     <div id="app">
         <h1>hello world @{{ title }}</h1>
         <header-component></header-component>
+        <router-view></router-view>
         <example-component></example-component> 
         <footer-component></footer-component>
     </div>
     <div id="isi">
         <h1>ini isi @{{judul}} @{{nama}}</h1>
-        <input type="text" name="nama" value="bambang">
+        <input type="text" name="nama" v-model="nama">
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
